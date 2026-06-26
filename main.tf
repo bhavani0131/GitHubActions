@@ -43,8 +43,3 @@ resource "aws_instance" "dev" {
 #  block_public_policy     = true
 #  restrict_public_buckets = true
 #}
-
-
-
-
-
