@@ -33,11 +33,9 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      # FIXED: Writing directly to the root workspace to prevent directory errors
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      # FIXED: Uploading the single plan file directly
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
         with:
@@ -69,16 +67,14 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        run: terraform init
-
-      # FIXED: Downloading the artifact directly into the current working directory (.)
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
         with:
           name: tfplan
           path: .
 
-      # FIXED: Using the root file name directly
+      - name: Terraform Init
+        run: terraform init
+
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
