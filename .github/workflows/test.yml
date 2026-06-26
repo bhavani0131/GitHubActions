@@ -10,6 +10,10 @@ jobs:
     name: Terraform Plan
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -17,8 +21,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
           aws-region: ap-south-2
 
       - name: Setup Terraform
@@ -44,6 +47,10 @@ jobs:
     needs: terraform-plan
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: read
+
     environment:
       name: production
 
@@ -54,8 +61,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
           aws-region: ap-south-2
 
       - name: Setup Terraform
