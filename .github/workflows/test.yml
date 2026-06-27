@@ -59,7 +59,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
-          aws-region: us-west-2
+          aws-region: ap-south-2
 
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
