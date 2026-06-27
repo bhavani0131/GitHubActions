@@ -3,8 +3,10 @@ provider "aws" {
 }
 
 resource "aws_instance" "dev" {
-  ami           = "ami-02167eae61967e403"
+  # FIXED: Valid Ubuntu 24.04 LTS AMI ID for the us-west-2 (Oregon) region
+  ami           = "ami-05d38da78ce859165"
   instance_type = "t3.micro"
+  
   tags = {
     Name = "Bhavani"
   }
@@ -12,7 +14,7 @@ resource "aws_instance" "dev" {
 
 terraform {
   backend "s3" {
-    bucket = "bhavani-terraform-state-bucket-uswest2"   # Replace with your bucket name
+    bucket = "bhavani-terraform-state-bucket-uswest2"
     key    = "terraform.tfstate"
     region = "us-west-2"
   }
