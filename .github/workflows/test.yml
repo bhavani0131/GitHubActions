@@ -8,7 +8,8 @@ on:
 jobs:
   terraform-plan:
     name: Terraform Plan
-    runs-on: ubuntu-latest
+    # CHANGED: Now runs on your permanent EC2 instance
+    runs-on: self-hosted
 
     permissions:
       id-token: write
@@ -22,7 +23,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
-          aws-region: ap-south-2
+          # CHANGED: Target region switched to us-west-2
+          aws-region: us-west-2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -45,7 +47,8 @@ jobs:
   terraform-apply:
     name: Terraform Apply
     needs: terraform-plan
-    runs-on: ubuntu-latest
+    # CHANGED: Now runs on your permanent EC2 instance
+    runs-on: self-hosted
 
     permissions:
       id-token: write
@@ -62,7 +65,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
-          aws-region: ap-south-2
+          # CHANGED: Target region switched to us-west-2
+          aws-region: us-west-2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
