@@ -12,7 +12,7 @@ resource "aws_instance" "dev" {
 
 terraform {
   backend "s3" {
-    bucket = "bhavani-terraform-state-bucket"   # Replace with your bucket name
+    bucket = "bhavani-bucket-1"   # Replace with your bucket name
     key    = "terraform.tfstate"
     region = "us-west-2"
   }
