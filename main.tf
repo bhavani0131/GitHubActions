@@ -1,23 +1,22 @@
 provider "aws" {
- region = "ap-south-2"
+  region = "us-west-2"
 }
 
 resource "aws_instance" "dev" {
-    ami = "ami-01f3f4b95d125a9af"
-    instance_type = "t3.micro"
-    tags = {
-      Name = "Bhavani"
-    }
+  ami           = "ami-02167eae61967e403"
+  instance_type = "t3.micro"
+  tags = {
+    Name = "Bhavani"
+  }
 }
 
-
- terraform {
-   backend "s3" {
-     bucket = "bhavani-terraform-state-bucket"   # Replace with your bucket name
-     key    = "terraform.tfstate"
-     region = "ap-south-2"
-   }
- }
+terraform {
+  backend "s3" {
+    bucket = "bhavani-terraform-state-bucket"   # Replace with your bucket name
+    key    = "terraform.tfstate"
+    region = "us-west-2"
+  }
+}
 
 #resource "aws_s3_bucket" "terraform_state" {
 #  bucket = "bhavani-terraform-state-bucket"   # Must be globally unique
