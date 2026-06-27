@@ -2,8 +2,19 @@ provider "aws" {
   region = "ap-south-2"
 }
 
+# Dynamically find the latest official Ubuntu 22.04 LTS AMI in Hyderabad
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Official Canonical Owner ID
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+}
+
 resource "aws_instance" "dev" {
-  ami           = "ami-0fc2099309ebdb62d" 
+  ami           = data.aws_ami.ubuntu.id # Uses the dynamic ID found above
   instance_type = "t3.micro"
   
   tags = {
