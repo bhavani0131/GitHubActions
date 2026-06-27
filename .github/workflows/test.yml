@@ -8,7 +8,6 @@ on:
 jobs:
   terraform-plan:
     name: Terraform Plan
-    # CHANGED: Now runs on your permanent EC2 instance
     runs-on: self-hosted
 
     permissions:
@@ -23,11 +22,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
-          # CHANGED: Target region switched to us-west-2
           aws-region: us-west-2
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
@@ -47,7 +42,6 @@ jobs:
   terraform-apply:
     name: Terraform Apply
     needs: terraform-plan
-    # CHANGED: Now runs on your permanent EC2 instance
     runs-on: self-hosted
 
     permissions:
@@ -65,11 +59,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
-          # CHANGED: Target region switched to us-west-2
           aws-region: us-west-2
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
 
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
