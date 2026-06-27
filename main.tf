@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "dev" {
-  ami           = "ami-0fc2099309ebdb62d"  
+  ami           = "ami-0fc2099309ebdb62d" 
   instance_type = "t3.micro"
   
   tags = {
@@ -13,8 +13,8 @@ resource "aws_instance" "dev" {
 
 terraform {
   backend "s3" {
-    bucket = "bhavani-terraform-state-bucket-uswest2"  
+    bucket = "bhavani-terraform-state-bucket-uswest2" 
     key    = "terraform.tfstate"
-    region = "ap-south-2"
+    region = "ap-south-2" 
   }
 }
