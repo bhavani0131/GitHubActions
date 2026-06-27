@@ -1,9 +1,9 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "ap-south-2"
 }
 
 resource "aws_instance" "dev" {
-  ami           = "ami-05d38da78ce859165"  # Correct Oregon AMI ID
+  ami           = "ami-05d38da78ce859165"  
   instance_type = "t3.micro"
   
   tags = {
@@ -13,8 +13,8 @@ resource "aws_instance" "dev" {
 
 terraform {
   backend "s3" {
-    bucket = "bhavani-terraform-state-bucket-uswest2"  # Your newly created bucket
+    bucket = "bhavani-terraform-state-bucket-uswest2"  
     key    = "terraform.tfstate"
-    region = "us-west-2"
+    region = "ap-south-2"
   }
 }
