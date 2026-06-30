@@ -18,20 +18,29 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Clean and authenticate via OIDC
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
           aws-region: ap-south-2
+          unset-current-credentials: true # Flushes out stale host credentials
 
+      # Force Terraform to use the correct region for the S3 backend
       - name: Terraform Init
         run: terraform init
+        env:
+          AWS_DEFAULT_REGION: ap-south-2
+          AWS_REGION: ap-south-2
 
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        env:
+          AWS_DEFAULT_REGION: ap-south-2
+          AWS_REGION: ap-south-2
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
@@ -60,6 +69,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
           aws-region: ap-south-2
+          unset-current-credentials: true 
 
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
@@ -69,6 +79,12 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        env:
+          AWS_DEFAULT_REGION: ap-south-2
+          AWS_REGION: ap-south-2
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        env:
+          AWS_DEFAULT_REGION: ap-south-2
+          AWS_REGION: ap-south-2
