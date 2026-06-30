@@ -18,17 +18,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
-          aws-region: ap-south-2
+          aws-region: us-east-1
 
-      # 1. ADD THIS TO INSTALL TERRAFORM CLI
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.5.7 # You can specify whatever version you prefer
+          terraform_version: 1.5.7
 
       - name: Terraform Init
         run: terraform init
@@ -61,13 +60,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350758825711:role/GitHubActionsRole
           aws-region: ap-south-2
 
-      # 2. ADD THIS TO THE APPLY JOB AS WELL
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
