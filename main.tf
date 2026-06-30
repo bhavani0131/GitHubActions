@@ -10,7 +10,11 @@ terraform {
   backend "s3" {
     bucket = "bhavani-terraform-state-bucket" 
     key    = "terraform.tfstate"
-    region = "ap-south-2" # This is correct since the bucket is physically in Hyderabad
+    region = "ap-south-2"
+    
+    # ADD THESE TWO LINES TO FIX THE HYDERABAD VALIDATION BUG
+    skip_region_validation      = true
+    skip_credentials_validation = true
   }
 }
 
