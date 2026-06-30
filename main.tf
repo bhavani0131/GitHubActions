@@ -1,3 +1,19 @@
+terraform {
+  required_version = ">= 1.0.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+  backend "s3" {
+    bucket = "bhavani-terraform-state-bucket" 
+    key    = "terraform.tfstate"
+    region = "ap-south-2" # This is correct since the bucket is physically in Hyderabad
+  }
+}
+
 provider "aws" {
   region = "ap-south-2"
 }
@@ -14,18 +30,10 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "dev" {
-  ami           = data.aws_ami.ubuntu.id # Uses the dynamic ID found above
+  ami           = data.aws_ami.ubuntu.id 
   instance_type = "t3.micro"
   
   tags = {
     Name = "Bhavani"
-  }
-}
-
-terraform {
-  backend "s3" {
-    bucket = "bhavani-terraform-state-bucket-uswest2" 
-    key    = "terraform.tfstate"
-    region = "ap-south-2" 
   }
 }
